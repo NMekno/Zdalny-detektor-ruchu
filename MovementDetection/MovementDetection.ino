@@ -15,7 +15,7 @@ void setup() {
 
 
 void loop() {
-  // read the pushbutton input pin:
+  // read the PIR signal input pin:
   pirOutputState = digitalRead(pirOutputPin);
 
   if (pirOutputState != lastPirState) {

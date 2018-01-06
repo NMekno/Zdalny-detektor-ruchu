@@ -39,14 +39,11 @@ while True:
         #         continue
         #     else:                
         #         break
-    #start2 = time.time()
-    output_file = open(write_to_file_path, "w")
     line = ser.readline()
     line = int(line.decode("utf-8")) - reduction
+    output_file = open(write_to_file_path, "w")
     deleteContent(output_file)
     print(line)
     output_file.write(str(line))
     output_file.close()
     time.sleep(0.5)
-    # start2 = time.time() - start2
-    # print(start2)

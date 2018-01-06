@@ -15,8 +15,9 @@
     <form>
       <label for="period-choose">Choose file</label>
       <select id="period-choose" name="period-choose"></select>
-      <input type="submit" name="fetch-button" value="NEW VALUES" onclick="updateSelect()">
     </form>
+    <button onclick="updateSelect()">New values</button>
+    <button onclick="checkState()">Check</button>
 
     <h2>Detected movements number (in choosen range):</h2>
 
@@ -34,7 +35,9 @@
       function updateSelect() {
         var select = document.getElementById("period-choose");
 		    select.options.length = 0;
+
         var url = 'http://127.0.0.1:5000/js_request';
+        
         fetch(url).then(function(response) {
           response.json().then(function(json) {
           	detection_array = json
@@ -47,6 +50,10 @@
       function updateDisplay(output) {
         outputDisplay.textContent = output;
       };
+      function checkState() {
+        var output = outputChoose.value;
+        updateDisplay(output);
+      }
       updateSelect();
     </script>
   </body>
