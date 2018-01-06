@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Detection App</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+  </head>
+
+  <body>
+    <h1>Collected data</h1>
+
+    <form>
+      <label for="period-choose">Choose file</label>
+      <select id="period-choose" name="period-choose"></select>
+      <input type="submit" name="fetch-button" value="NEW VALUES" onclick="updateSelect()">
+    </form>
+
+    <h2>Detected movements number (in choosen range):</h2>
+
+    <pre>
+
+    </pre>
+
+    <script>
+      var outputChoose = document.querySelector('select');
+      var outputDisplay = document.querySelector('pre');
+      outputChoose.onchange = function() {
+        var output = outputChoose.value;
+        updateDisplay(output);
+      };
+      function updateSelect() {
+        var select = document.getElementById("period-choose");
+		    select.options.length = 0;
+        var url = 'http://127.0.0.1:5000/js_request';
+        fetch(url).then(function(response) {
+          response.json().then(function(json) {
+          	detection_array = json
+            for (var i = 0; i < detection_array.length; i++) {
+            	select.options[select.options.length] = new Option('output' + i, detection_array[i]);
+            }
+          });
+        });
+      };
+      function updateDisplay(output) {
+        outputDisplay.textContent = output;
+      };
+      updateSelect();
+    </script>
+  </body>
+</html>

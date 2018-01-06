@@ -19,25 +19,27 @@ time_frontier = start + PERIOD_OF_TIME
 output_file = open(write_to_file_path, "w")
 output_file.write("0")
 output_file.close()
-
+start2 = 0
 ser = serial.Serial(serial_port, baud_rate)
 while True:
+    
     if time.time() > time_frontier:
         licznik += 1
         write_to_file_path = "output" + str(licznik) + ".txt"
         start = time.time()
         reduction += line
         time_frontier = start + PERIOD_OF_TIME
-        while True:
-            try:
-                output_file = open(write_to_file_path, "w")
-                print(0)
-                output_file.write("0")
-                output_file.close()
-            except Exception as e:
-                continue
-            else:                
-                break
+        # while True:
+        #     try:
+        #         output_file = open(write_to_file_path, "w+")
+        #         print(0)
+        #         output_file.write("0")
+        #         output_file.close()
+        #     except Exception as e:
+        #         continue
+        #     else:                
+        #         break
+    #start2 = time.time()
     output_file = open(write_to_file_path, "w")
     line = ser.readline()
     line = int(line.decode("utf-8")) - reduction
@@ -45,4 +47,6 @@ while True:
     print(line)
     output_file.write(str(line))
     output_file.close()
-    time.sleep(20)
+    time.sleep(0.5)
+    # start2 = time.time() - start2
+    # print(start2)
